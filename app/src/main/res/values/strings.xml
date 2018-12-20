@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">Library Catalogue</string>
+  <string name="title_activity_main">MainActivity</string>
+  <string-array name="books_sources">
+    <item>Favorite</item>
+    <item>Network</item>
+    <item>DarkNet</item>
+  </string-array>
+</resources>
