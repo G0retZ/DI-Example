@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public Fragment getItem(int position) {
       // getItem is called to instantiate the fragment for the given page.
+      switch (position % 3) {
+        case 0: return new FavoriteBooksFragment();
+        case 1: return new InternetBooksFragment();
+        case 2: return new ForbiddenBooksFragment();
+      }
       return new BooksFragment();
     }
 
