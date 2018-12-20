@@ -5,16 +5,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.sergejmitrofanov.librarycatalogue.application.MainApplication;
 import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenter;
+import java.util.Map;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 public class FavoriteBooksFragment extends BooksFragment {
 
+  @SuppressWarnings("ConstantConditions")
   @Inject
-  @Override
-  public void setBookListPresenter(
-      @Named("FavoritesPresenter") @NonNull BookListPresenter bookListPresenter) {
-    super.setBookListPresenter(bookListPresenter);
+  public void setBookListPresenter(@NonNull Map<Class<?>, BookListPresenter> bookListPresenter) {
+    super.setBookListPresenter(bookListPresenter.get(getClass()));
   }
 
   @Override

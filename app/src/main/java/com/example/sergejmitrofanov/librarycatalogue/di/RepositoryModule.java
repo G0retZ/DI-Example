@@ -6,25 +6,29 @@ import com.example.sergejmitrofanov.librarycatalogue.repository.FavoritesBooksSo
 import com.example.sergejmitrofanov.librarycatalogue.repository.NetworkBooksSource;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Named;
+import dagger.multibindings.IntKey;
+import dagger.multibindings.IntoMap;
 
 @Module
 class RepositoryModule {
 
   @Provides
-  @Named("FavoritesSource")
+  @IntoMap
+  @IntKey(0)
   BooksSource provideFavoriteBooksSource(FavoritesBooksSource booksSource) {
     return booksSource;
   }
 
   @Provides
-  @Named("InternetSource")
+  @IntoMap
+  @IntKey(1)
   BooksSource provideInternetBooksSource(NetworkBooksSource booksSource) {
     return booksSource;
   }
 
   @Provides
-  @Named("ForbiddenSource")
+  @IntoMap
+  @IntKey(2)
   BooksSource provideForbiddenBooksSource(DarkNetBooksSource booksSource) {
     return booksSource;
   }

@@ -3,32 +3,39 @@ package com.example.sergejmitrofanov.librarycatalogue.di;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListUseCase;
 import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenter;
 import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenterImpl;
+import com.example.sergejmitrofanov.librarycatalogue.view.FavoriteBooksFragment;
+import com.example.sergejmitrofanov.librarycatalogue.view.ForbiddenBooksFragment;
+import com.example.sergejmitrofanov.librarycatalogue.view.InternetBooksFragment;
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Named;
+import dagger.multibindings.ClassKey;
+import dagger.multibindings.IntoMap;
+import java.util.Map;
 
+@SuppressWarnings("ConstantConditions")
 @Module(includes = InteractorModule.class)
 class PresenterModule {
 
   @Provides
-  @Named("FavoritesPresenter")
-  BookListPresenter provideFavoriteBooksPresenter(
-      @Named("Favorites") BookListUseCase bookListUseCase) {
-    return new BookListPresenterImpl(bookListUseCase);
+  @IntoMap
+  @ClassKey(FavoriteBooksFragment.class)
+  BookListPresenter provideFavoriteBookListPresenter(Map<Integer, BookListUseCase> bookListUseCaseMap) {
+    return new BookListPresenterImpl(bookListUseCaseMap.get(0));
   }
 
   @Provides
-  @Named("InternetPresenter")
-  BookListPresenter provideInternetBooksPresenter(
-      @Named("Internet") BookListUseCase bookListUseCase) {
-    return new BookListPresenterImpl(bookListUseCase);
+  @IntoMap
+  @ClassKey(InternetBooksFragment.class)
+  BookListPresenter provideInternetBookListPresenter(Map<Integer, BookListUseCase> bookListUseCaseMap) {
+    return new BookListPresenterImpl(bookListUseCaseMap.get(1));
+
   }
 
   @Provides
-  @Named("ForbiddenPresenter")
-  BookListPresenter provideForbiddenBooksPresenter(
-      @Named("Forbidden") BookListUseCase bookListUseCase) {
-    return new BookListPresenterImpl(bookListUseCase);
+  @IntoMap
+  @ClassKey(ForbiddenBooksFragment.class)
+  BookListPresenter provideForbiddenBookListPresenter(Map<Integer, BookListUseCase> bookListUseCaseMap) {
+    return new BookListPresenterImpl(bookListUseCaseMap.get(2));
 
   }
 }
