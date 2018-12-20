@@ -5,8 +5,13 @@ import com.example.sergejmitrofanov.librarycatalogue.entity.Book;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BooksSource;
 import java.util.Arrays;
 import java.util.List;
+import javax.inject.Inject;
 
 public class NetworkBooksSource implements BooksSource {
+
+  @Inject
+  NetworkBooksSource() {
+  }
 
   @NonNull
   @Override

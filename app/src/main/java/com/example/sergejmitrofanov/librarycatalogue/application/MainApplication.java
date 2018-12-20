@@ -3,7 +3,7 @@ package com.example.sergejmitrofanov.librarycatalogue.application;
 import android.app.Application;
 import androidx.annotation.NonNull;
 import com.example.sergejmitrofanov.librarycatalogue.di.AppComponent;
-import com.example.sergejmitrofanov.librarycatalogue.di.AppComponentImpl;
+import com.example.sergejmitrofanov.librarycatalogue.di.DaggerAppComponent;
 
 public class MainApplication extends Application {
 
@@ -17,6 +17,6 @@ public class MainApplication extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
-    appComponent = new AppComponentImpl();
+    appComponent = DaggerAppComponent.builder().build();
   }
 }

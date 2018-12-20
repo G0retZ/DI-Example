@@ -5,8 +5,13 @@ import com.example.sergejmitrofanov.librarycatalogue.entity.Book;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.inject.Inject;
 
 public class BookListRatingSorter implements BookListSorter {
+
+  @Inject
+  public BookListRatingSorter() {
+  }
 
   @NonNull
   @Override

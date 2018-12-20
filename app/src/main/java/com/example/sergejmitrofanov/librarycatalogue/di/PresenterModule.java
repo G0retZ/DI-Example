@@ -1,33 +1,34 @@
 package com.example.sergejmitrofanov.librarycatalogue.di;
 
-import androidx.annotation.NonNull;
+import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListUseCase;
 import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenter;
 import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenterImpl;
+import dagger.Module;
+import dagger.Provides;
+import javax.inject.Named;
 
+@Module(includes = InteractorModule.class)
 class PresenterModule {
 
-  @NonNull
-  private final InteractorModule interactorModule;
-
-  PresenterModule() {
-    this.interactorModule = new InteractorModule();
+  @Provides
+  @Named("FavoritesPresenter")
+  BookListPresenter provideFavoriteBooksPresenter(
+      @Named("Favorites") BookListUseCase bookListUseCase) {
+    return new BookListPresenterImpl(bookListUseCase);
   }
 
-  BookListPresenter getFavoriteBooksPresenter() {
-    return new BookListPresenterImpl(
-        interactorModule.getFavoriteBooksUseCase()
-    );
+  @Provides
+  @Named("InternetPresenter")
+  BookListPresenter provideInternetBooksPresenter(
+      @Named("Internet") BookListUseCase bookListUseCase) {
+    return new BookListPresenterImpl(bookListUseCase);
   }
 
-  BookListPresenter getInternetBooksPresenter() {
-    return new BookListPresenterImpl(
-        interactorModule.getInternetBooksUseCase()
-    );
-  }
+  @Provides
+  @Named("ForbiddenPresenter")
+  BookListPresenter provideForbiddenBooksPresenter(
+      @Named("Forbidden") BookListUseCase bookListUseCase) {
+    return new BookListPresenterImpl(bookListUseCase);
 
-  BookListPresenter getForbiddenBooksPresenter() {
-    return new BookListPresenterImpl(
-        interactorModule.getForbiddenBooksUseCase()
-    );
   }
 }

@@ -3,6 +3,7 @@ package com.example.sergejmitrofanov.librarycatalogue.interactor;
 import androidx.annotation.NonNull;
 import com.example.sergejmitrofanov.librarycatalogue.entity.Book;
 import java.util.List;
+import javax.inject.Inject;
 
 public class BookListUseCaseImpl implements BookListUseCase {
 
@@ -11,6 +12,7 @@ public class BookListUseCaseImpl implements BookListUseCase {
   @NonNull
   private final BookListSorter bookListSorter;
 
+  @Inject
   public BookListUseCaseImpl(@NonNull BooksSource booksSource,
       @NonNull BookListSorter bookListSorter) {
     this.booksSource = booksSource;

@@ -1,39 +1,40 @@
 package com.example.sergejmitrofanov.librarycatalogue.di;
 
-import androidx.annotation.NonNull;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListAuthorSorter;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListRatingSorter;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListTitleSorter;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListUseCase;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListUseCaseImpl;
+import com.example.sergejmitrofanov.librarycatalogue.interactor.BooksSource;
+import dagger.Module;
+import dagger.Provides;
+import javax.inject.Named;
 
+@Module(includes = RepositoryModule.class)
 class InteractorModule {
 
-  @NonNull
-  private final RepositoryModule repositoryModule;
-
-  InteractorModule() {
-    this.repositoryModule = new RepositoryModule();
+  @Provides
+  @Named("Favorites")
+  BookListUseCase provideFavoriteBooksUseCase(
+      BookListTitleSorter bookListSorter,
+      @Named("FavoritesSource") BooksSource booksSource) {
+    return new BookListUseCaseImpl(booksSource, bookListSorter);
   }
 
-  BookListUseCase getFavoriteBooksUseCase() {
-    return new BookListUseCaseImpl(
-        repositoryModule.getFavoriteBooksSource(),
-        new BookListTitleSorter()
-    );
+  @Provides
+  @Named("Internet")
+  BookListUseCase provideInternetBooksUseCase(
+      BookListAuthorSorter bookListSorter,
+      @Named("InternetSource") BooksSource booksSource) {
+    return new BookListUseCaseImpl(booksSource, bookListSorter);
   }
 
-  BookListUseCase getInternetBooksUseCase() {
-    return new BookListUseCaseImpl(
-        repositoryModule.getInternetBooksSource(),
-        new BookListAuthorSorter()
-    );
-  }
-
-  BookListUseCase getForbiddenBooksUseCase() {
-    return new BookListUseCaseImpl(
-        repositoryModule.getForbiddenBooksSource(),
-        new BookListRatingSorter()
-    );
+  @Provides
+  @Named("Forbidden")
+  BookListUseCase provideForbiddenBooksUseCase(
+      BookListRatingSorter bookListSorter,
+      @Named("ForbiddenSource") BooksSource booksSource
+  ) {
+    return new BookListUseCaseImpl(booksSource, bookListSorter);
   }
 }

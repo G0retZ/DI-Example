@@ -4,6 +4,7 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListUseCase;
+import javax.inject.Inject;
 
 public class BookListPresenterImpl implements BookListPresenter {
 
@@ -12,6 +13,7 @@ public class BookListPresenterImpl implements BookListPresenter {
   @Nullable
   private BooksView booksView;
 
+  @Inject
   public BookListPresenterImpl(@NonNull BookListUseCase bookListUseCase) {
     this.bookListUseCase = bookListUseCase;
   }
