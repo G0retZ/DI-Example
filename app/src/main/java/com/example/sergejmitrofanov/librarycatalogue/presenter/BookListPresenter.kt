@@ -1,12 +1,9 @@
-package com.example.sergejmitrofanov.librarycatalogue.presenter;
+package com.example.sergejmitrofanov.librarycatalogue.presenter
 
-import androidx.annotation.NonNull;
+interface BookListPresenter {
+    fun attachView(booksView: BooksView)
 
-public interface BookListPresenter {
+    fun detachView()
 
-  void attachView(@NonNull BooksView booksView);
-
-  void detachView();
-
-  void loadBooks();
+    fun loadBooks()
 }

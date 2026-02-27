@@ -1,39 +1,25 @@
-package com.example.sergejmitrofanov.librarycatalogue.presenter;
+package com.example.sergejmitrofanov.librarycatalogue.presenter
 
-import android.os.Handler;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListUseCase;
+import android.os.Handler
+import android.os.Looper
+import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListUseCase
 
-public class BookListPresenterImpl implements BookListPresenter {
+class BookListPresenterImpl(private val bookListUseCase: BookListUseCase) : BookListPresenter {
+    private var booksView: BooksView? = null
 
-  @NonNull private final BookListUseCase bookListUseCase;
-  @Nullable private BooksView booksView;
+    override fun attachView(booksView: BooksView) {
+        this.booksView = booksView
+        loadBooks()
+    }
 
-  public BookListPresenterImpl(@NonNull BookListUseCase bookListUseCase) {
-    this.bookListUseCase = bookListUseCase;
-  }
+    override fun detachView() {
+        this.booksView = null
+    }
 
-  @Override
-  public void attachView(@NonNull BooksView booksView) {
-    this.booksView = booksView;
-    loadBooks();
-  }
-
-  @Override
-  public void detachView() {
-    this.booksView = null;
-  }
-
-  @Override
-  public void loadBooks() {
-    new Handler()
-        .postDelayed(
-            () -> {
-              if (booksView != null) {
-                booksView.showBooks(bookListUseCase.getBooks());
-              }
-            },
-            2000);
-  }
+    override fun loadBooks() {
+        Handler(Looper.getMainLooper()).postDelayed(
+            { booksView?.showBooks(bookListUseCase.getBooks()) },
+            2000,
+        )
+    }
 }

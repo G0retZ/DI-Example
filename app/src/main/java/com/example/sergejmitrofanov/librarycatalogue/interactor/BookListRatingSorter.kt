@@ -1,26 +1,14 @@
-package com.example.sergejmitrofanov.librarycatalogue.interactor;
+package com.example.sergejmitrofanov.librarycatalogue.interactor
 
-import androidx.annotation.NonNull;
-import com.example.sergejmitrofanov.librarycatalogue.entity.Book;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.example.sergejmitrofanov.librarycatalogue.entity.Book
 
-public class BookListRatingSorter implements BookListSorter {
-
-  @NonNull
-  @Override
-  public List<Book> sortBooks(@NonNull List<Book> books) {
-    List<Book> sortedBooks = new ArrayList<>(books);
-    Collections.sort(
-        sortedBooks,
-        (b1, b2) -> {
-          int res = b2.rating - b1.rating;
-          if (res == 0) {
-            return b1.bookTitle.compareTo(b2.bookTitle);
-          }
-          return res;
-        });
-    return sortedBooks;
-  }
+class BookListRatingSorter : BookListSorter {
+    override fun sortBooks(books: List<Book>) = books.sortedWith { b1: Book, b2: Book ->
+        val result = b2.rating - b1.rating
+        if (result == 0) {
+            b1.bookTitle.compareTo(b2.bookTitle)
+        } else {
+            result
+        }
+    }
 }

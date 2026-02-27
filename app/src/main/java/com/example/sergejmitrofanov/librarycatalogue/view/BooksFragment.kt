@@ -1,81 +1,68 @@
-package com.example.sergejmitrofanov.librarycatalogue.view;
+package com.example.sergejmitrofanov.librarycatalogue.view
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.example.sergejmitrofanov.librarycatalogue.R;
-import com.example.sergejmitrofanov.librarycatalogue.entity.Book;
-import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenter;
-import com.example.sergejmitrofanov.librarycatalogue.presenter.BooksView;
-import java.util.Collections;
-import java.util.List;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.sergejmitrofanov.librarycatalogue.R
+import com.example.sergejmitrofanov.librarycatalogue.entity.Book
+import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenter
+import com.example.sergejmitrofanov.librarycatalogue.presenter.BooksView
 
-/** A fragment representing a list of Items. */
-public class BooksFragment extends Fragment implements BooksView {
+/**
+ * A fragment representing a list of Items.
+ */
+class BooksFragment(private val presenter: BookListPresenter) : Fragment(), BooksView {
+    private var swipeRefreshLayout: SwipeRefreshLayout? = null
+    private var recyclerView: RecyclerView? = null
 
-  private SwipeRefreshLayout swipeRefreshLayout;
-  private RecyclerView recyclerView;
-
-  @NonNull
-  private final BookListPresenter bookListPresenter;
-
-  BooksFragment(@NonNull BookListPresenter bookListPresenter) {
-    this.bookListPresenter = bookListPresenter;
-  }
-
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setRetainInstance(true);
-  }
-
-  @Override
-  public View onCreateView(
-      @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_books_list, container, false);
-
-    // Set the adapter
-    recyclerView = view.findViewById(R.id.recyclerView);
-    recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-    recyclerView.setAdapter(new BooksRecyclerViewAdapter(Collections.emptyList()));
-
-    if (view instanceof SwipeRefreshLayout) {
-      swipeRefreshLayout = (SwipeRefreshLayout) view;
-      swipeRefreshLayout.setOnRefreshListener(this::refresh);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setRetainInstance(true)
     }
-    swipeRefreshLayout.setRefreshing(true);
-    return view;
-  }
 
-  @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    swipeRefreshLayout.setRefreshing(true);
-    bookListPresenter.attachView(this);
-  }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val view = inflater.inflate(R.layout.fragment_books_list, container, false)
 
-  @Override
-  public void onDestroyView() {
-    bookListPresenter.detachView();
-    super.onDestroyView();
-  }
+        // Set the adapter
+        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView?.setLayoutManager(LinearLayoutManager(context))
+        recyclerView?.setAdapter(BooksRecyclerViewAdapter(mutableListOf()))
 
-  private void refresh() {
-    recyclerView.setVisibility(View.GONE);
-    bookListPresenter.loadBooks();
-  }
+        if (view is SwipeRefreshLayout) {
+            swipeRefreshLayout = view
+            swipeRefreshLayout?.setOnRefreshListener { this.refresh() }
+        }
+        swipeRefreshLayout?.isRefreshing = true
+        return view
+    }
 
-  @Override
-  public void showBooks(@NonNull List<Book> books) {
-    swipeRefreshLayout.setRefreshing(false);
-    recyclerView.setAdapter(new BooksRecyclerViewAdapter(books));
-    recyclerView.setVisibility(View.VISIBLE);
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        swipeRefreshLayout?.isRefreshing = true
+        presenter.attachView(this)
+    }
+
+    override fun onDestroyView() {
+        presenter.detachView()
+        super.onDestroyView()
+    }
+
+    private fun refresh() {
+        recyclerView?.visibility = View.GONE
+        presenter.loadBooks()
+    }
+
+    override fun showBooks(books: List<Book>) {
+        swipeRefreshLayout?.isRefreshing = false
+        recyclerView?.setAdapter(BooksRecyclerViewAdapter(books))
+        recyclerView?.visibility = View.VISIBLE
+    }
 }

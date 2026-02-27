@@ -1,11 +1,7 @@
-package com.example.sergejmitrofanov.librarycatalogue.interactor;
+package com.example.sergejmitrofanov.librarycatalogue.interactor
 
-import androidx.annotation.NonNull;
-import com.example.sergejmitrofanov.librarycatalogue.entity.Book;
-import java.util.List;
+import com.example.sergejmitrofanov.librarycatalogue.entity.Book
 
-public interface BookListSorter {
-
-  @NonNull
-  List<Book> sortBooks(@NonNull List<Book> books);
+interface BookListSorter {
+    fun sortBooks(books: List<Book>): List<Book>
 }

@@ -1,11 +1,7 @@
-package com.example.sergejmitrofanov.librarycatalogue.interactor;
+package com.example.sergejmitrofanov.librarycatalogue.interactor
 
-import androidx.annotation.NonNull;
-import com.example.sergejmitrofanov.librarycatalogue.entity.Book;
-import java.util.List;
+import com.example.sergejmitrofanov.librarycatalogue.entity.Book
 
-public interface BooksSource {
-
-  @NonNull
-  List<Book> getBooks();
+interface BooksSource {
+    fun getBooks(): List<Book>
 }

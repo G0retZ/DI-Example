@@ -1,10 +1,7 @@
-package com.example.sergejmitrofanov.librarycatalogue.presenter;
+package com.example.sergejmitrofanov.librarycatalogue.presenter
 
-import androidx.annotation.NonNull;
-import com.example.sergejmitrofanov.librarycatalogue.entity.Book;
-import java.util.List;
+import com.example.sergejmitrofanov.librarycatalogue.entity.Book
 
-public interface BooksView {
-
-  void showBooks(@NonNull List<Book> books);
+interface BooksView {
+    fun showBooks(books: List<Book>)
 }

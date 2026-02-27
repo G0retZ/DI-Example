@@ -1,23 +1,8 @@
-package com.example.sergejmitrofanov.librarycatalogue.interactor;
+package com.example.sergejmitrofanov.librarycatalogue.interactor
 
-import androidx.annotation.NonNull;
-import com.example.sergejmitrofanov.librarycatalogue.entity.Book;
-import java.util.List;
-
-public class BookListUseCaseImpl implements BookListUseCase {
-
-  @NonNull private final BooksSource booksSource;
-  @NonNull private final BookListSorter bookListSorter;
-
-  public BookListUseCaseImpl(
-      @NonNull BooksSource booksSource, @NonNull BookListSorter bookListSorter) {
-    this.booksSource = booksSource;
-    this.bookListSorter = bookListSorter;
-  }
-
-  @NonNull
-  @Override
-  public List<Book> getBooks() {
-    return bookListSorter.sortBooks(booksSource.getBooks());
-  }
+class BookListUseCaseImpl(
+    private val booksSource: BooksSource,
+    private val bookListSorter: BookListSorter
+) : BookListUseCase {
+    override fun getBooks() = bookListSorter.sortBooks(booksSource.getBooks())
 }
