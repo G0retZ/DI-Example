@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
-    SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(
-        getSupportFragmentManager());
+    SectionsPagerAdapter mSectionsPagerAdapter =
+        new SectionsPagerAdapter(getSupportFragmentManager());
 
     // Set up the ViewPager with the sections adapter.
     ViewPager mViewPager = findViewById(R.id.container);
@@ -43,9 +43,12 @@ public class MainActivity extends AppCompatActivity {
     public Fragment getItem(int position) {
       // getItem is called to instantiate the fragment for the given page.
       switch (position % 3) {
-        case 0: return new FavoriteBooksFragment();
-        case 1: return new InternetBooksFragment();
-        case 2: return new ForbiddenBooksFragment();
+        case 0:
+          return new FavoriteBooksFragment();
+        case 1:
+          return new InternetBooksFragment();
+        case 2:
+          return new ForbiddenBooksFragment();
       }
       return new BooksFragment();
     }

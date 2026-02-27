@@ -10,11 +10,8 @@ import com.example.sergejmitrofanov.librarycatalogue.R;
 import com.example.sergejmitrofanov.librarycatalogue.entity.Book;
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link Book}.
- */
-class BooksRecyclerViewAdapter extends
-    RecyclerView.Adapter<BooksRecyclerViewAdapter.ViewHolder> {
+/** {@link RecyclerView.Adapter} that can display a {@link Book}. */
+class BooksRecyclerViewAdapter extends RecyclerView.Adapter<BooksRecyclerViewAdapter.ViewHolder> {
 
   private final List<Book> mValues;
 
@@ -25,8 +22,7 @@ class BooksRecyclerViewAdapter extends
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext())
-        .inflate(R.layout.item_book, parent, false);
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_book, parent, false);
     return new ViewHolder(view);
   }
 

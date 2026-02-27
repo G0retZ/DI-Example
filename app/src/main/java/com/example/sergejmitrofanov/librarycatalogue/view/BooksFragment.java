@@ -17,9 +17,7 @@ import com.example.sergejmitrofanov.librarycatalogue.presenter.BooksView;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- */
+/** A fragment representing a list of Items. */
 public class BooksFragment extends Fragment implements BooksView {
 
   private SwipeRefreshLayout swipeRefreshLayout;
@@ -27,8 +25,7 @@ public class BooksFragment extends Fragment implements BooksView {
 
   private BookListPresenter bookListPresenter;
 
-  public void setBookListPresenter(
-      @NonNull BookListPresenter bookListPresenter) {
+  public void setBookListPresenter(@NonNull BookListPresenter bookListPresenter) {
     this.bookListPresenter = bookListPresenter;
   }
 
@@ -39,8 +36,8 @@ public class BooksFragment extends Fragment implements BooksView {
   }
 
   @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_books_list, container, false);
 
     // Set the adapter

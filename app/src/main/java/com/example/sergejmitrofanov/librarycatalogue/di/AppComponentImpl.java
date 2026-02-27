@@ -18,35 +18,20 @@ public class AppComponentImpl implements AppComponent {
   public void inject(FavoriteBooksFragment favoriteBooksFragment) {
     favoriteBooksFragment.setBookListPresenter(
         new BookListPresenterImpl(
-            new BookListUseCaseImpl(
-                new FavoritesBooksSource(),
-                new BookListTitleSorter()
-            )
-        )
-    );
+            new BookListUseCaseImpl(new FavoritesBooksSource(), new BookListTitleSorter())));
   }
 
   @Override
   public void inject(InternetBooksFragment internetBooksFragment) {
     internetBooksFragment.setBookListPresenter(
         new BookListPresenterImpl(
-            new BookListUseCaseImpl(
-                new NetworkBooksSource(),
-                new BookListAuthorSorter()
-            )
-        )
-    );
+            new BookListUseCaseImpl(new NetworkBooksSource(), new BookListAuthorSorter())));
   }
 
   @Override
   public void inject(ForbiddenBooksFragment forbiddenBooksFragment) {
     forbiddenBooksFragment.setBookListPresenter(
         new BookListPresenterImpl(
-            new BookListUseCaseImpl(
-                new DarkNetBooksSource(),
-                new BookListRatingSorter()
-            )
-        )
-    );
+            new BookListUseCaseImpl(new DarkNetBooksSource(), new BookListRatingSorter())));
   }
 }

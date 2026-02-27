@@ -6,14 +6,11 @@ import java.util.List;
 
 public class BookListUseCaseImpl implements BookListUseCase {
 
-  @NonNull
-  private final BooksSource booksSource;
-  @NonNull
-  private final BookListSorter bookListSorter;
+  @NonNull private final BooksSource booksSource;
+  @NonNull private final BookListSorter bookListSorter;
 
   public BookListUseCaseImpl(
-      @NonNull BooksSource booksSource,
-      @NonNull BookListSorter bookListSorter) {
+      @NonNull BooksSource booksSource, @NonNull BookListSorter bookListSorter) {
     this.booksSource = booksSource;
     this.bookListSorter = bookListSorter;
   }

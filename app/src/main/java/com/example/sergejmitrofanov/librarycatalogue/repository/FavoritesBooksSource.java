@@ -36,7 +36,6 @@ public class FavoritesBooksSource implements BooksSource {
         new Book("Иоганн Вольфганг фон Гёте", "Фауст", 10),
         new Book("Федерико Гарсиа Лорка", "Цыганское романсеро", 7),
         new Book("Жуан Гимарайнс Роза", "Тропы по большому сертану", 9),
-        new Book("Гомер", "Илиада", 7)
-    );
+        new Book("Гомер", "Илиада", 7));
   }
 }

@@ -7,10 +7,8 @@ import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListUseCase;
 
 public class BookListPresenterImpl implements BookListPresenter {
 
-  @NonNull
-  private final BookListUseCase bookListUseCase;
-  @Nullable
-  private BooksView booksView;
+  @NonNull private final BookListUseCase bookListUseCase;
+  @Nullable private BooksView booksView;
 
   public BookListPresenterImpl(@NonNull BookListUseCase bookListUseCase) {
     this.bookListUseCase = bookListUseCase;
@@ -29,10 +27,13 @@ public class BookListPresenterImpl implements BookListPresenter {
 
   @Override
   public void loadBooks() {
-    new Handler().postDelayed(() -> {
-      if (booksView != null) {
-        booksView.showBooks(bookListUseCase.getBooks());
-      }
-    }, 2000);
+    new Handler()
+        .postDelayed(
+            () -> {
+              if (booksView != null) {
+                booksView.showBooks(bookListUseCase.getBooks());
+              }
+            },
+            2000);
   }
 }

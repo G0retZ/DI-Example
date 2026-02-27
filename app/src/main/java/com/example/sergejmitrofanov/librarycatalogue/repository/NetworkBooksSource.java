@@ -82,7 +82,6 @@ public class NetworkBooksSource implements BooksSource {
         new Book("Мишель де Монтень", "Опыты", 7),
         new Book("Астрид Линдгрен", "Пеппи Длинныйчулок", 4),
         new Book("Уильям Шекспир", "Гамлет", 3),
-        new Book("Франц Кафка", "За́мок", 4)
-    );
+        new Book("Франц Кафка", "За́мок", 4));
   }
 }
