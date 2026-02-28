@@ -8,12 +8,18 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.example.sergejmitrofanov.librarycatalogue.R
-import com.example.sergejmitrofanov.librarycatalogue.di.tabsPresenters
 import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var tabsPresenters: List<@JvmSuppressWildcards BookListPresenter>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

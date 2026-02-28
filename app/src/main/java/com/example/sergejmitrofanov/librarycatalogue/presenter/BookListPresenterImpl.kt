@@ -3,8 +3,13 @@ package com.example.sergejmitrofanov.librarycatalogue.presenter
 import android.os.Handler
 import android.os.Looper
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListUseCase
+import dagger.hilt.android.scopes.FragmentScoped
+import javax.inject.Inject
 
-class BookListPresenterImpl(private val bookListUseCase: BookListUseCase) : BookListPresenter {
+@FragmentScoped
+class BookListPresenterImpl @Inject constructor(
+    private val bookListUseCase: BookListUseCase
+) : BookListPresenter {
     private var booksView: BooksView? = null
 
     override fun attachView(booksView: BooksView) {

@@ -1,6 +1,8 @@
 package com.example.sergejmitrofanov.librarycatalogue.interactor
 
-class BookListUseCaseImpl(
+import javax.inject.Inject
+
+class BookListUseCaseImpl @Inject constructor(
     private val booksSource: BooksSource,
     private val bookListSorter: BookListSorter
 ) : BookListUseCase {

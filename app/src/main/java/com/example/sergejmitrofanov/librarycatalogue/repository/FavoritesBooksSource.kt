@@ -2,8 +2,9 @@ package com.example.sergejmitrofanov.librarycatalogue.repository
 
 import com.example.sergejmitrofanov.librarycatalogue.entity.Book
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BooksSource
+import javax.inject.Inject
 
-class FavoritesBooksSource : BooksSource {
+class FavoritesBooksSource @Inject constructor() : BooksSource {
     override fun getBooks() = listOf(
         Book("Хорхе Луис Борхес", "Вымыслы", 9),
         Book("Вирджиния Вулф", "Миссис Дэллоуэй", 8),
