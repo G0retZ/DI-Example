@@ -2,36 +2,37 @@ package com.example.sergejmitrofanov.librarycatalogue.di;
 
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListAuthorSorter;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListRatingSorter;
+import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListSorter;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListTitleSorter;
 import com.example.sergejmitrofanov.librarycatalogue.interactor.BookListUseCaseImpl;
+import com.example.sergejmitrofanov.librarycatalogue.interactor.BooksSource;
+import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenter;
 import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenterImpl;
 import com.example.sergejmitrofanov.librarycatalogue.repository.DarkNetBooksSource;
 import com.example.sergejmitrofanov.librarycatalogue.repository.FavoritesBooksSource;
 import com.example.sergejmitrofanov.librarycatalogue.repository.NetworkBooksSource;
-import com.example.sergejmitrofanov.librarycatalogue.view.FavoriteBooksFragment;
-import com.example.sergejmitrofanov.librarycatalogue.view.ForbiddenBooksFragment;
-import com.example.sergejmitrofanov.librarycatalogue.view.InternetBooksFragment;
+import java.util.Arrays;
+import java.util.List;
 
 public class AppComponentImpl implements AppComponent {
-
   @Override
-  public void inject(FavoriteBooksFragment favoriteBooksFragment) {
-    favoriteBooksFragment.setBookListPresenter(
+  public List<BookListPresenter> getTabsPresenters() {
+    return Arrays.asList(
         new BookListPresenterImpl(
-            new BookListUseCaseImpl(new FavoritesBooksSource(), new BookListTitleSorter())));
+            new BookListUseCaseImpl(favoritesBooksSource, bookListTitleSorter)),
+        new BookListPresenterImpl(
+            new BookListUseCaseImpl(networkBooksSource, bookListAuthorSorter)),
+        new BookListPresenterImpl(
+            new BookListUseCaseImpl(darkNetBooksSource, bookListRatingSorter)));
   }
 
-  @Override
-  public void inject(InternetBooksFragment internetBooksFragment) {
-    internetBooksFragment.setBookListPresenter(
-        new BookListPresenterImpl(
-            new BookListUseCaseImpl(new NetworkBooksSource(), new BookListAuthorSorter())));
-  }
+  // Sorters
+  private final BookListSorter bookListTitleSorter = new BookListTitleSorter();
+  private final BookListSorter bookListAuthorSorter = new BookListAuthorSorter();
+  private final BookListSorter bookListRatingSorter = new BookListRatingSorter();
 
-  @Override
-  public void inject(ForbiddenBooksFragment forbiddenBooksFragment) {
-    forbiddenBooksFragment.setBookListPresenter(
-        new BookListPresenterImpl(
-            new BookListUseCaseImpl(new DarkNetBooksSource(), new BookListRatingSorter())));
-  }
+  // Sources
+  private final BooksSource favoritesBooksSource = new FavoritesBooksSource();
+  private final BooksSource networkBooksSource = new NetworkBooksSource();
+  private final BooksSource darkNetBooksSource = new DarkNetBooksSource();
 }

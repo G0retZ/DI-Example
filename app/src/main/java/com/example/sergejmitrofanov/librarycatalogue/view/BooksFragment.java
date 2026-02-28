@@ -23,9 +23,10 @@ public class BooksFragment extends Fragment implements BooksView {
   private SwipeRefreshLayout swipeRefreshLayout;
   private RecyclerView recyclerView;
 
-  private BookListPresenter bookListPresenter;
+  @NonNull
+  private final BookListPresenter bookListPresenter;
 
-  public void setBookListPresenter(@NonNull BookListPresenter bookListPresenter) {
+  BooksFragment(@NonNull BookListPresenter bookListPresenter) {
     this.bookListPresenter = bookListPresenter;
   }
 

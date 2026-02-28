@@ -1,14 +1,9 @@
 package com.example.sergejmitrofanov.librarycatalogue.di;
 
-import com.example.sergejmitrofanov.librarycatalogue.view.FavoriteBooksFragment;
-import com.example.sergejmitrofanov.librarycatalogue.view.ForbiddenBooksFragment;
-import com.example.sergejmitrofanov.librarycatalogue.view.InternetBooksFragment;
+import com.example.sergejmitrofanov.librarycatalogue.presenter.BookListPresenter;
+import java.util.List;
 
 public interface AppComponent {
 
-  void inject(FavoriteBooksFragment favoriteBooksFragment);
-
-  void inject(InternetBooksFragment internetBooksFragment);
-
-  void inject(ForbiddenBooksFragment forbiddenBooksFragment);
+  List<BookListPresenter> getTabsPresenters();
 }
