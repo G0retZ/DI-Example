@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -8,9 +8,13 @@
   tools:context=".view.MainActivity">
 
   <com.google.android.material.appbar.AppBarLayout
-    android:layout_width="match_parent"
+    android:id="@+id/appbar"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/appbar_padding_top"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
     android:theme="@style/AppTheme.AppBarOverlay">
 
     <androidx.appcompat.widget.Toolbar
@@ -27,14 +31,21 @@
 
   </com.google.android.material.appbar.AppBarLayout>
 
-  <androidx.viewpager.widget.ViewPager
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    <com.google.android.material.tabs.TabLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-  </androidx.viewpager.widget.ViewPager>
+  <com.google.android.material.tabs.TabLayout
+    android:id="@+id/tabs"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/appbar"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+  <androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/container"
+    android:layout_height="0dp"
+    android:layout_width="match_parent"
+    app:layout_constraintTop_toBottomOf="@id/tabs"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

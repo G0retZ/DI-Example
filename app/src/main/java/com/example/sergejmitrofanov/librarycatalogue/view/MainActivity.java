@@ -1,14 +1,16 @@
 package com.example.sergejmitrofanov.librarycatalogue.view;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 import com.example.sergejmitrofanov.librarycatalogue.R;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,26 +23,33 @@ public class MainActivity extends AppCompatActivity {
     setSupportActionBar(toolbar);
     // Create the adapter that will return a fragment for each of the three
     // primary sections of the activity.
-    SectionsPagerAdapter mSectionsPagerAdapter =
-        new SectionsPagerAdapter(getSupportFragmentManager());
+    SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(this);
 
     // Set up the ViewPager with the sections adapter.
-    ViewPager mViewPager = findViewById(R.id.container);
-    mViewPager.setAdapter(mSectionsPagerAdapter);
+    ViewPager2 viewPager = findViewById(R.id.container);
+    viewPager.setAdapter(mSectionsPagerAdapter);
+    TabLayout tabLayout = findViewById(R.id.tabs);
+    new TabLayoutMediator(
+            tabLayout,
+            viewPager,
+            (tab, position) ->
+                tab.setText(getResources().getStringArray(R.array.books_sources)[position]))
+        .attach();
   }
 
   /**
-   * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the
+   * A {@link FragmentStateAdapter} that returns a fragment corresponding to one of the
    * sections/tabs/pages.
    */
-  class SectionsPagerAdapter extends FragmentPagerAdapter {
+  static class SectionsPagerAdapter extends FragmentStateAdapter {
 
-    SectionsPagerAdapter(FragmentManager fm) {
+    SectionsPagerAdapter(FragmentActivity fm) {
       super(fm);
     }
 
+    @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
       // getItem is called to instantiate the fragment for the given page.
       switch (position % 3) {
         case 0:
@@ -53,14 +62,8 @@ public class MainActivity extends AppCompatActivity {
       return new BooksFragment();
     }
 
-    @Nullable
     @Override
-    public CharSequence getPageTitle(int position) {
-      return getResources().getStringArray(R.array.books_sources)[position];
-    }
-
-    @Override
-    public int getCount() {
+    public int getItemCount() {
       // Show 3 total pages.
       return 3;
     }
